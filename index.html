@@ -40,7 +40,8 @@
             transition: 0.3s;
         }
 
-        .navbar-brand { font-size: 1.4rem; color: #fff !important; font-weight: 700; letter-spacing: 1px; }
+        .navbar-brand img { height: 55px; transition: 0.3s; object-fit: contain; }
+        .navbar-brand:hover img { transform: scale(1.05); }
         
         .nav-center-bar {
             background: rgba(255, 255, 255, 0.03);
@@ -50,7 +51,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 15px auto; /* للموبايل */
+            margin: 15px auto; 
         }
 
         .nav-link { 
@@ -93,7 +94,6 @@
         .navbar-toggler { border: none; }
         .navbar-toggler:focus { box-shadow: none; }
 
-        /* توسيط البار في النص بالظبط على الشاشات الكبيرة */
         @media (min-width: 992px) {
             .nav-center-bar {
                 position: absolute;
@@ -144,6 +144,33 @@
             display: inline-block;
         }
         .btn-outline-glow:hover { background: rgba(58, 134, 255, 0.1); color: var(--primary-color); border-color: var(--primary-color); }
+
+        /* Logo Buttons for Education & Experience */
+        .logo-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: transparent; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(0, 210, 255, 0.4); 
+            transition: 0.3s;
+            overflow: hidden;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .logo-btn:hover {
+            transform: scale(1.1);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+        }
+        .logo-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 5px;
+        }
 
         /* Blob & Image */
         .hero-img-container {
@@ -308,16 +335,28 @@
             object-fit: contain;
         }
 
-        /* Tools specific styling */
-        .tool-box { padding: 15px 10px; }
-        .tool-icon { font-size: 2rem; margin-bottom: 10px; color: var(--text-color); transition: 0.3s; }
-        .tool-box:hover .tool-icon { color: var(--primary-color); }
+        /* =========================================
+           حل مشكلة الفاصل (Divider) نهائياً باستخدام Border رفيع
+           =========================================
+        */
+        @media (min-width: 768px) {
+            .thin-divider-right {
+                border-right: 1px solid rgba(0, 210, 255, 0.2); /* خط رفيع 1px فقط */
+            }
+        }
+        @media (max-width: 767px) {
+            .thin-divider-bottom {
+                border-bottom: 1px solid rgba(0, 210, 255, 0.2); /* خط رفيع 1px للموبايل */
+                padding-bottom: 40px;
+                margin-bottom: 40px !important;
+            }
+        }
 
-        /* === Services List === */
+        .tool-box { padding: 15px 10px; }
+        
         .service-list li { margin-bottom: 8px; font-size: 0.9rem; color: #bbb; }
         .service-list li i { color: var(--primary-color); margin-right: 8px; font-size: 0.7rem; }
 
-        /* === Projects === */
         .project-img { height: 200px; object-fit: cover; width: 100%; background: #222; }
         .tech-badge {
             font-size: 0.75rem;
@@ -329,31 +368,74 @@
             display: inline-block;
         }
 
-        /* === Testimonials === */
+        /* =========================================
+           Infinite Marquee For Testimonials
+           =========================================
+        */
+        .marquee-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding: 20px 0;
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .marquee-track {
+            display: flex;
+            gap: 30px;
+            width: max-content;
+            animation: marquee-scroll 25s linear infinite;
+        }
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+        .marquee-group {
+            display: flex;
+            gap: 30px;
+        }
         .testimonial-card {
+            width: 400px; 
             background: var(--card-bg);
             padding: 30px;
             border-radius: 15px;
             position: relative;
             border: 1px solid rgba(255,255,255,0.05);
-            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: 0.3s;
+            flex-shrink: 0;
         }
+        .testimonial-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 15px)); } 
+        }
+
+        @media (max-width: 768px) {
+            .testimonial-card { width: 320px; padding: 20px; }
+        }
+
         .testimonial-author-box { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
         .author-initial {
             width: 45px; height: 45px; background: rgba(58, 134, 255, 0.2); 
             color: var(--primary-color); border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem;
+            flex-shrink: 0;
         }
         .social-circle-small {
             width: 35px; height: 35px; border-radius: 50%; background: rgba(255,255,255,0.05);
             display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; transition: 0.3s;
+            flex-shrink: 0;
         }
         .social-circle-small:hover { background: var(--primary-color); color: #000; }
-
-        /* === Achievements === */
+        
+        /* === Achievements & Services Icons === */
         .achievement-card {
             text-align: center;
             padding: 30px;
@@ -364,7 +446,15 @@
             height: 100%;
         }
         .achievement-card:hover { background: rgba(58, 134, 255, 0.1); }
+        
         .achievement-icon { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 15px; }
+        /* كلاس جديد للصور الـ SVG عشان تاخد نفس مساحة الأيقونات */
+        .achievement-icon-img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+            object-fit: contain;
+        }
 
         /* === Contact Form === */
         .contact-form input, .contact-form textarea {
@@ -375,39 +465,20 @@
             border-radius: 8px;
             margin-bottom: 20px;
         }
-        .contact-form input::placeholder, 
-        .contact-form textarea::placeholder {
-            color: #a0a0b0; 
-            opacity: 1;
-        }
-        .contact-form input:focus, .contact-form textarea:focus {
-            background: #16162a;
-            border-color: var(--primary-color);
-            box-shadow: none;
-            color: #fff;
-        }
+        .contact-form input::placeholder, .contact-form textarea::placeholder { color: #a0a0b0; opacity: 1; }
+        .contact-form input:focus, .contact-form textarea:focus { background: #16162a; border-color: var(--primary-color); box-shadow: none; color: #fff; }
         
         .social-circle {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 1.2rem;
-            transition: 0.3s;
-            border: 1px solid rgba(255,255,255,0.1);
-            margin-right: 15px;
-            text-decoration: none;
+            width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.05);
+            display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.2rem;
+            transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); margin-right: 15px; text-decoration: none;
         }
         .social-circle:hover { background: var(--primary-color); color: #000; border-color: var(--primary-color); }
 
         /* === Fancy Footer === */
         .fancy-footer { background-color: #020205; padding-top: 60px; border-top: 1px solid rgba(255,255,255,0.05); }
-        .footer-logo { font-size: 1.8rem; font-weight: 700; color: #fff; text-decoration: none; }
-        .footer-logo span { color: var(--primary-color); }
+        .footer-logo img { max-width: 250px; height: auto; transition: 0.3s; object-fit: contain; margin-bottom: 15px; }
+        .footer-logo:hover img { transform: scale(1.05); }
         .footer-links { list-style: none; padding: 0; }
         .footer-links li { margin-bottom: 10px; }
         .footer-links a { color: #aaa; text-decoration: none; transition: 0.3s; }
@@ -435,15 +506,13 @@
 
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid px-lg-5">
-            
-            <a class="navbar-brand" href="#">&lt;Hisham/&gt;</a>
-            
+            <a class="navbar-brand" href="#">
+                <img src="assets/siteLogo.png" alt="Hisham Nasser Logo">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="fas fa-bars text-white fs-3"></span>
             </button>
-
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                
                 <ul class="navbar-nav nav-center-bar">
                     <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
@@ -455,10 +524,8 @@
                     <li class="nav-item"><a class="nav-link" href="#achievements">Achievements</a></li>
                     <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
                 </ul>
-
                 <a href="#contact" class="nav-btn-contact text-center text-decoration-none mt-3 mt-lg-0 d-inline-block">Contact Me</a>
             </div>
-
         </div>
     </nav>
 
@@ -507,8 +574,17 @@
                         <span class="text-muted small">2023 - 2027</span>
                     </div>
                     <hr style="border-color: rgba(255,255,255,0.1);">
-                    <h5 class="mb-2 text-white">Bachelor of Computer Science</h5>
-                    <p class="text-info small mb-3"><i class="fas fa-university me-2"></i>El Shorouk Academy</p>
+                    
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <h5 class="mb-2 text-white">Bachelor of Computer Science</h5>
+                            <p class="text-info small mb-3"><i class="fas fa-university me-2"></i>El Shorouk Academy</p>
+                        </div>
+                        <a href="https://sha.edu.eg/" target="_blank" class="logo-btn" title="Shorouk Academy">
+                            <img src="assets/sha.png" alt="SHA Logo">
+                        </a>
+                    </div>
+                    
                     <p class="text-secondary small mb-2"><strong>Specialization:</strong> Computer Science</p>
                     <p class="text-secondary small mb-2"><strong>Coursework:</strong> Algorithms, Software Engineering, Data Structures, OOP.</p>
                 </div>
@@ -544,8 +620,8 @@
     <section id="skills" class="container section-padding reveal">
         <h2 class="section-title">My Skills</h2>
         
-        <div class="row">
-            <div class="col-md-6 mb-4">
+        <div class="row position-relative">
+            <div class="col-md-6 mb-4 pe-md-5 thin-divider-right thin-divider-bottom">
                 <h4 class="mb-4 text-center text-info"><i class="fas fa-code me-2"></i>Technical</h4>
                 <div class="row g-3">
                     <div class="col-6 col-lg-4">
@@ -575,26 +651,26 @@
                     <div class="col-6 col-lg-4">
                         <div class="skill-box">
                             <img src="assets/icons/sharedpreferences.svg" alt="Shared Prefs" class="skill-icon-img">
-                            <span class="skill-name">Shared Prefs</span>
+                            <span class="skill-name">Shared Preferences</span>
                         </div>
                     </div>
                     <div class="col-6 col-lg-4">
                         <div class="skill-box">
                             <img src="assets/icons/responsive.svg" alt="Responsive" class="skill-icon-img">
-                            <span class="skill-name">Responsive</span>
+                            <span class="skill-name">Responsive UI</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 mb-4">
+            <div class="col-md-6 mb-4 ps-md-5">
                 <h4 class="mb-4 text-center text-success"><i class="fas fa-users me-2"></i>Soft Skills</h4>
                 <div class="row g-3">
                     <div class="col-6 col-lg-4"><div class="skill-box"><img src="assets/icons/problemsolving.svg" alt="Problem Solving" class="skill-icon-img"><span class="skill-name">Problem Solving</span></div></div>
                     <div class="col-6 col-lg-4"><div class="skill-box"><img src="assets/icons/leadership.svg" alt="Leadership" class="skill-icon-img"><span class="skill-name">Leadership</span></div></div>
                     <div class="col-6 col-lg-4"><div class="skill-box"><img src="assets/icons/learning.svg" alt="Self-Learning" class="skill-icon-img"><span class="skill-name">Self-Learning</span></div></div>
                     <div class="col-6 col-lg-4"><div class="skill-box"><img src="assets/icons/teamwork.svg" alt="Teamwork" class="skill-icon-img"><span class="skill-name">Teamwork</span></div></div>
-                    <div class="col-6 col-lg-4"><div class="skill-box"><img src="assets/icons/time-management.svg" alt="Time Mgmt" class="skill-icon-img"><span class="skill-name">Time Mgmt</span></div></div>
+                    <div class="col-6 col-lg-4"><div class="skill-box"><img src="assets/icons/time-management.svg" alt="Time Mgmt" class="skill-icon-img"><span class="skill-name">Time Management</span></div></div>
                     <div class="col-6 col-lg-4"><div class="skill-box"><img src="assets/icons/presentation.svg" alt="Presentation" class="skill-icon-img"><span class="skill-name">Presentation</span></div></div>
                 </div>
             </div>
@@ -604,19 +680,42 @@
             <div class="col-lg-10">
                 <h4 class="mb-4 text-center text-primary"><i class="fas fa-tools me-2"></i>Tools I Use</h4>
                 <div class="row g-2 justify-content-center">
-                    <div class="col-4 col-md-2"><div class="skill-box tool-box"><i class="fas fa-code tool-icon"></i><span class="skill-name small">VS Code</span></div></div>
-                    
+                    <div class="col-4 col-md-2">
+                        <div class="skill-box tool-box">
+                            <img src="assets/icons/vscode.svg" alt="VS Code" class="skill-icon-img" style="width: 30px; height: 30px; margin-bottom: 10px;">
+                            <span class="skill-name small">VS Code</span>
+                        </div>
+                    </div>
                     <div class="col-4 col-md-2">
                         <div class="skill-box tool-box">
                             <img src="assets/icons/microsoft-visual-studio.svg" alt="Visual Studio" class="skill-icon-img" style="width: 30px; height: 30px; margin-bottom: 10px;">
                             <span class="skill-name small">Visual Studio</span>
                         </div>
                     </div>
-                    
-                    <div class="col-4 col-md-2"><div class="skill-box tool-box"><i class="fab fa-android tool-icon"></i><span class="skill-name small">Android Studio</span></div></div>
-                    <div class="col-4 col-md-2"><div class="skill-box tool-box"><i class="fab fa-figma tool-icon"></i><span class="skill-name small">Figma</span></div></div>
-                    <div class="col-4 col-md-2"><div class="skill-box tool-box"><i class="fab fa-git-alt tool-icon"></i><span class="skill-name small">Git</span></div></div>
-                    <div class="col-4 col-md-2"><div class="skill-box tool-box"><i class="fas fa-database tool-icon"></i><span class="skill-name small">SSMS</span></div></div>
+                    <div class="col-4 col-md-2">
+                        <div class="skill-box tool-box">
+                            <img src="assets/icons/Android Studio.svg" alt="Android Studio" class="skill-icon-img" style="width: 30px; height: 30px; margin-bottom: 10px;">
+                            <span class="skill-name small">Android Studio</span>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-2">
+                        <div class="skill-box tool-box">
+                            <img src="assets/icons/figma.svg" alt="Figma" class="skill-icon-img" style="width: 30px; height: 30px; margin-bottom: 10px;">
+                            <span class="skill-name small">Figma</span>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-2">
+                        <div class="skill-box tool-box">
+                            <img src="assets/icons/Git.svg" alt="Git" class="skill-icon-img" style="width: 30px; height: 30px; margin-bottom: 10px;">
+                            <span class="skill-name small">Git</span>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-2">
+                        <div class="skill-box tool-box">
+                            <img src="assets/icons/ssms.svg" alt="SSMS" class="skill-icon-img" style="width: 30px; height: 30px; margin-bottom: 10px;">
+                            <span class="skill-name small">SSMS</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -655,9 +754,16 @@
                 <div class="timeline">
                     <div class="timeline-item">
                         <div class="timeline-content common-card">
-                            <span class="date-badge">Nov 2025 - Aug 2026</span>
-                            <h3 class="mb-1">Cross Platform App Development (DEPI)</h3>
-                            <p class="text-info mb-4">Digital Egypt Pioneers Initiative - Hybrid</p>
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <span class="date-badge">Nov 2025 - Aug 2026</span>
+                                    <h3 class="mb-1">Cross Platform App Development</h3>
+                                    <p class="text-info mb-4">Digital Egypt Pioneers Initiative (DEPI) - Hybrid</p>
+                                </div>
+                                <a href="https://depi.gov.eg/content/home" target="_blank" class="logo-btn ms-3" title="DEPI">
+                                    <img src="assets/depi.png" alt="DEPI Logo">
+                                </a>
+                            </div>
                             
                             <p class="car-text text-secondary"><strong>Challenge:</strong> Mastering the full lifecycle of cross-platform mobile application development and advanced state management techniques.</p>
                             <p class="car-text text-secondary"><strong>Action:</strong> Undertook intensive hybrid training, diving deep into Dart, Flutter, API integration, and Firebase, while consistently documenting and unit testing code.</p>
@@ -666,9 +772,16 @@
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-content common-card">
-                            <span class="date-badge">July 2025 - Aug 2025</span>
-                            <h3 class="mb-1">Flutter Development Course (ITI)</h3>
-                            <p class="text-info mb-4">Information Technology Institute - Online</p>
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <span class="date-badge">July 2025 - Aug 2025</span>
+                                    <h3 class="mb-1">Flutter Development Course</h3>
+                                    <p class="text-info mb-4">Information Technology Institute (ITI) - Online</p>
+                                </div>
+                                <a href="https://iti.gov.eg/home" target="_blank" class="logo-btn ms-3" title="ITI">
+                                    <img src="assets/iti.png" alt="ITI Logo">
+                                </a>
+                            </div>
                             
                             <p class="car-text text-secondary"><strong>Challenge:</strong> Quickly grasping mobile app development fundamentals and transitioning into a structured framework like Flutter.</p>
                             <p class="car-text text-secondary"><strong>Action:</strong> Completed a rigorous 120-hour intensive summer training covering HTML/CSS, JS basics, Dart, and Flutter UI/UX components.</p>
@@ -686,7 +799,7 @@
             <div class="col-md-4 mb-4">
                 <div class="common-card text-start">
                     <div class="text-center mb-4">
-                        <i class="fas fa-mobile-alt achievement-icon"></i>
+                        <img src="assets/icons/app-development.svg" alt="App Development" class="achievement-icon-img">
                         <h4>App Development</h4>
                     </div>
                     <p class="text-muted small mb-3">Building high-quality iOS and Android apps using a single Flutter codebase.</p>
@@ -700,7 +813,7 @@
             <div class="col-md-4 mb-4">
                 <div class="common-card text-start">
                     <div class="text-center mb-4">
-                        <i class="fas fa-tachometer-alt achievement-icon"></i>
+                        <img src="assets/icons/performance-growth.svg" alt="Performance Tuning" class="achievement-icon-img">
                         <h4>Performance Tuning</h4>
                     </div>
                     <p class="text-muted small mb-3">Optimizing app performance to run smoothly on low-end devices.</p>
@@ -714,7 +827,7 @@
             <div class="col-md-4 mb-4">
                 <div class="common-card text-start">
                     <div class="text-center mb-4">
-                        <i class="fas fa-server achievement-icon"></i>
+                        <img src="assets/icons/backend.svg" alt="Backend Binding" class="achievement-icon-img">
                         <h4>Backend Binding</h4>
                     </div>
                     <p class="text-muted small mb-3">Integrating apps with Firebase, REST APIs, and handling complex data flow.</p>
@@ -739,7 +852,7 @@
                             <h4 class="mb-0">PowerGym</h4>
                             <span class="badge bg-dark border border-secondary text-light" style="font-size:0.7rem;">Aug 7 - Sep 17, 2025</span>
                         </div>
-                        <p class="text-primary small mb-3">Personal Project</p>
+                        <p class="text-primary small mb-3">Freelance Project</p>
                         
                         <div class="mb-3 flex-grow-1">
                             <p class="car-text text-secondary mb-1"><strong>Challenge:</strong> Creating a gym app that works smoothly on low-end devices.</p>
@@ -791,7 +904,6 @@
                             <h4 class="mb-0">Toku App</h4>
                             <span class="badge bg-dark border border-secondary text-light" style="font-size:0.7rem;">Jan 12 - Jan 15, 2025</span>
                         </div>
-                        <p class="text-primary small mb-3">Personal Project</p>
                         
                         <div class="mb-3 flex-grow-1">
                             <p class="car-text text-secondary mb-1"><strong>Challenge:</strong> Building a language learning app that doesn't rely on internet connectivity.</p>
@@ -816,7 +928,7 @@
         <div class="row">
             <div class="col-md-4 mb-3">
                 <div class="achievement-card">
-                    <i class="fas fa-trophy achievement-icon"></i>
+                    <img src="assets/icons/selected.svg" alt="DEPI Selection" class="achievement-icon-img">
                     <h4 class="mb-2">DEPI Selection</h4>
                     <p class="text-primary small mb-3">Digital Egypt Pioneers Initiative</p>
                     <p class="text-secondary small line-height-normal">Selected to join the prestigious MCIT initiative, undergoing intensive training in modern cross-platform development techniques.</p>
@@ -832,7 +944,7 @@
             </div>
             <div class="col-md-4 mb-3">
                 <div class="achievement-card">
-                    <i class="fas fa-chart-line achievement-icon"></i>
+                    <img src="assets/icons/performance-growth.svg" alt="Performance Boost" class="achievement-icon-img">
                     <h4 class="mb-2">30% Performance Boost</h4>
                     <p class="text-primary small mb-3">Apkpure Platform</p>
                     <p class="text-secondary small line-height-normal">Achieved massive performance optimization in the PowerGym App, successfully published and ensuring smooth usage on low-end devices.</p>
@@ -841,64 +953,155 @@
         </div>
     </section>
 
-    <section id="testimonials" class="container section-padding reveal">
+    <section id="testimonials" class="container-fluid section-padding reveal overflow-hidden">
         <h2 class="section-title">Testimonials</h2>
-        <div class="row justify-content-center">
-            
-            <div class="col-md-6 mb-4">
-                <div class="testimonial-card">
-                    <div>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="text-warning fs-5">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        
+        <div class="marquee-wrapper">
+            <div class="marquee-track">
+                
+                <div class="marquee-group">
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-primary text-primary"><i class="fas fa-bolt me-1"></i> Proactive</span>
                             </div>
-                            <span class="badge bg-dark border border-primary text-primary"><i class="fas fa-bolt me-1"></i> Proactive</span>
+                            <p class="fst-italic text-light">"Hisham exceeded my expectations with the PowerGym app. He implemented features I hadn't even thought of, and the app runs smoothly on all devices. A truly proactive developer!"</p>
                         </div>
-                        <p class="fst-italic text-light">"Hisham exceeded my expectations with the PowerGym app. He implemented features I hadn't even thought of, and the app runs smoothly on all devices. A truly proactive developer!"</p>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">SB</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Sayed Bukharist</h5>
+                                    <small class="text-muted">Gym Owner</small>
+                                </div>
+                            </div>
+                            <a href="https://www.facebook.com/sayed.bukharist.2025" target="_blank" class="social-circle-small text-primary border border-secondary">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </div>
                     </div>
-                    
-                    <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
-                            <div class="author-initial">SB</div>
-                            <div class="ms-3">
-                                <h5 class="mb-0 text-white">Sayed Bukharist</h5>
-                                <small class="text-muted">Gym Owner</small>
+
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-success text-success"><i class="fas fa-check-circle me-1"></i> Excellent Student</span>
                             </div>
+                            <p class="fst-italic text-light">"Hisham showed exceptional dedication during the Flutter course, achieving a 99% score. His grasp of complex concepts like State Management and clean architecture was highly impressive."</p>
                         </div>
-                        <a href="https://www.facebook.com/sayed.bukharist.2025" target="_blank" class="social-circle-small text-primary border border-secondary">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">MR</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Mostafa H. Ramadan</h5>
+                                    <small class="text-muted">ITI Flutter Instructor</small>
+                                </div>
+                            </div>
+                            <a href="https://www.linkedin.com/in/mostafa-hussain-ramadan/" target="_blank" class="social-circle-small text-info border border-secondary">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-info text-info"><i class="fas fa-bullseye me-1"></i> Committed Learner</span>
+                            </div>
+                            <p class="fst-italic text-light">"I had the honor of training Hisham in soft skills as part of the Digital Egypt Pioneers initiative. During the training, he proved to be an ambitious, enthusiastic, and highly committed learner. I wish you all the best, Engineer Hisham."</p>
+                        </div>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">AE</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Amira Ellahlopy</h5>
+                                    <small class="text-muted">DEPI Soft Skills Trainer</small>
+                                </div>
+                            </div>
+                            <a href="https://www.linkedin.com/in/amira-ellahlopy-9a6998150/" target="_blank" class="social-circle-small text-info border border-secondary">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-6 mb-4">
-                <div class="testimonial-card">
-                    <div>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="text-warning fs-5">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <div class="marquee-group" aria-hidden="true">
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-primary text-primary"><i class="fas fa-bolt me-1"></i> Proactive</span>
                             </div>
-                            <span class="badge bg-dark border border-success text-success"><i class="fas fa-check-circle me-1"></i> Excellent Student</span>
+                            <p class="fst-italic text-light">"Hisham exceeded my expectations with the PowerGym app. He implemented features I hadn't even thought of, and the app runs smoothly on all devices. A truly proactive developer!"</p>
                         </div>
-                        <p class="fst-italic text-light">"Hisham showed exceptional dedication during the Flutter course, achieving a 99% score. His grasp of complex concepts like State Management and clean architecture was highly impressive."</p>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">SB</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Sayed Bukharist</h5>
+                                    <small class="text-muted">Gym Owner</small>
+                                </div>
+                            </div>
+                            <a href="https://www.facebook.com/sayed.bukharist.2025" target="_blank" class="social-circle-small text-primary border border-secondary"><i class="fab fa-facebook-f"></i></a>
+                        </div>
                     </div>
-                    
-                    <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
-                            <div class="author-initial">MR</div>
-                            <div class="ms-3">
-                                <h5 class="mb-0 text-white">Mostafa H. Ramadan</h5>
-                                <small class="text-muted">ITI Flutter Instructor</small>
+
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-success text-success"><i class="fas fa-check-circle me-1"></i> Excellent Student</span>
                             </div>
+                            <p class="fst-italic text-light">"Hisham showed exceptional dedication during the Flutter course, achieving a 99% score. His grasp of complex concepts like State Management and clean architecture was highly impressive."</p>
                         </div>
-                        <a href="https://www.linkedin.com/in/mostafa-hussain-ramadan/" target="_blank" class="social-circle-small text-info border border-secondary">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">MR</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Mostafa H. Ramadan</h5>
+                                    <small class="text-muted">ITI Flutter Instructor</small>
+                                </div>
+                            </div>
+                            <a href="https://www.linkedin.com/in/mostafa-hussain-ramadan/" target="_blank" class="social-circle-small text-info border border-secondary"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-info text-info"><i class="fas fa-bullseye me-1"></i> Committed Learner</span>
+                            </div>
+                            <p class="fst-italic text-light">"I had the honor of training Hisham in soft skills as part of the Digital Egypt Pioneers initiative. During the training, he proved to be an ambitious, enthusiastic, and highly committed learner. I wish you all the best, Engineer Hisham."</p>
+                        </div>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">AE</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Amira Ellahlopy</h5>
+                                    <small class="text-muted">DEPI Soft Skills Trainer</small>
+                                </div>
+                            </div>
+                            <a href="https://www.linkedin.com/in/amira-ellahlopy-9a6998150/" target="_blank" class="social-circle-small text-info border border-secondary"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </section>
 
@@ -968,7 +1171,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 mb-4 mb-md-0">
-                    <a href="#" class="footer-logo">&lt;Hisham<span>Nasser/</span>&gt;</a>
+                    <a href="#" class="footer-logo">
+                        <img src="assets/siteLogo.png" alt="Hisham Nasser Logo">
+                    </a>
                     <p class="text-muted mt-3 pe-md-5">Building robust, high-performance cross-platform mobile applications with a focus on clean architecture and seamless user experiences.</p>
                 </div>
                 <div class="col-md-3 mb-4 mb-md-0">
@@ -1017,7 +1222,7 @@
         }
         reveal();
 
-        // === Scroll to Top Button ===
+        // === Scroll to Top Button & Active Nav Link ===
         let mybutton = document.getElementById("scrollTopBtn");
         window.onscroll = function() {scrollFunction()};
 
