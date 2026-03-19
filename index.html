@@ -6,7 +6,7 @@
     <title>Hisham Nasser | Flutter Developer</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
         /* === Global Variables === */
@@ -93,16 +93,6 @@
 
         .navbar-toggler { border: none; }
         .navbar-toggler:focus { box-shadow: none; }
-
-        @media (min-width: 992px) {
-            .nav-center-bar {
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                margin: 0;
-            }
-        }
 
         /* === Hero Section === */
         .hero {
@@ -287,6 +277,12 @@
             padding-left: 30px;
             border-left: 2px solid rgba(255,255,255,0.1);
         }
+        [dir="rtl"] .timeline {
+            border-left: none;
+            border-right: 2px solid rgba(255,255,255,0.1);
+            padding-left: 0;
+            padding-right: 30px;
+        }
         .timeline-item { position: relative; margin-bottom: 40px; }
         .timeline-item::before {
             content: '';
@@ -298,6 +294,10 @@
             background: var(--bg-color);
             border: 4px solid var(--primary-color);
             border-radius: 50%;
+        }
+        [dir="rtl"] .timeline-item::before {
+            left: auto;
+            right: -39px;
         }
         .date-badge {
             background: rgba(58, 134, 255, 0.15);
@@ -335,10 +335,33 @@
             object-fit: contain;
         }
 
-        /* =========================================
-           حل مشكلة الفاصل (Divider) نهائياً باستخدام Border رفيع
-           =========================================
-        */
+        /* === Custom Tabs Styling === */
+        .skills-tabs {
+            margin-bottom: 40px;
+        }
+        .skills-tabs .nav-link {
+            border-radius: 50px;
+            color: #b0b0b0;
+            padding: 10px 25px;
+            margin: 5px;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.05);
+            background: var(--card-bg);
+            transition: 0.3s;
+        }
+        .skills-tabs .nav-link:hover {
+            color: #fff;
+            border-color: rgba(0, 210, 255, 0.3);
+            background: rgba(0, 210, 255, 0.05);
+        }
+        .skills-tabs .nav-link.active {
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.3);
+            border-color: transparent;
+        }
+
+       
         @media (min-width: 768px) {
             .thin-divider-right {
                 border-right: 1px solid rgba(0, 210, 255, 0.2); /* خط رفيع 1px فقط */
@@ -368,10 +391,6 @@
             display: inline-block;
         }
 
-        /* =========================================
-           Infinite Marquee For Testimonials
-           =========================================
-        */
         .marquee-wrapper {
             position: relative;
             width: 100%;
@@ -384,7 +403,7 @@
             display: flex;
             gap: 30px;
             width: max-content;
-            animation: marquee-scroll 25s linear infinite;
+            animation: marquee-scroll 50s linear infinite;
         }
         .marquee-track:hover {
             animation-play-state: paused;
@@ -415,6 +434,15 @@
         @keyframes marquee-scroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(calc(-50% - 15px)); } 
+        }
+        
+        [dir="rtl"] .marquee-track {
+            animation: marquee-scroll-rtl 50s linear infinite;
+        }
+
+        @keyframes marquee-scroll-rtl {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(50% + 15px)); } 
         }
 
         @media (max-width: 768px) {
@@ -448,7 +476,7 @@
         .achievement-card:hover { background: rgba(58, 134, 255, 0.1); }
         
         .achievement-icon { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 15px; }
-        /* كلاس جديد للصور الـ SVG عشان تاخد نفس مساحة الأيقونات */
+
         .achievement-icon-img {
             width: 60px;
             height: 60px;
@@ -496,6 +524,54 @@
             .blob-bg { width: 300px; height: 300px; }
             .profile-img { width: 250px; height: 250px; }
         }
+
+        /* === RTL Global Overrides === */
+        [dir="rtl"] .text-start { text-align: right !important; }
+        [dir="rtl"] .service-list { padding-right: 0; }
+        [dir="rtl"] .service-list li i { margin-right: 0; margin-left: 8px; }
+        [dir="rtl"] .about-text {
+            border-left: none;
+            border-right: 4px solid var(--secondary-color);
+            padding-left: 20px;
+            padding-right: 20px;
+            border-radius: 10px 0 0 10px;
+        }
+
+        /* === Light Theme Overrides === */
+        [data-theme="light"] {
+            --bg-color: #ebedee;       
+            --card-bg: #f8f9fa;        
+            --primary-color: #0077b6;  
+            --secondary-color: #023e8a;
+            --text-color: #4a4e69; 
+        }
+        [data-theme="light"] body { background-color: var(--bg-color); color: var(--text-color); }
+        [data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3, [data-theme="light"] h4, [data-theme="light"] .hero-desc, [data-theme="light"] .text-white { color: #22223b !important; }
+        [data-theme="light"] p, [data-theme="light"] .about-text { color: var(--text-color); }
+        [data-theme="light"] .text-muted, [data-theme="light"] .text-secondary { color: #6c757d !important; }
+        [data-theme="light"] .text-light:not(.badge) { color: #4a4e69 !important; }
+        [data-theme="light"] .navbar { background-color: rgba(244, 247, 246, 0.95); border-bottom-color: rgba(0,0,0,0.1); }
+        [data-theme="light"] .nav-link { color: #4a4e69 !important; }
+        [data-theme="light"] .nav-link.active, [data-theme="light"] .nav-link:hover { color: #0077b6 !important; background: rgba(0, 119, 182, 0.1); }
+        [data-theme="light"] .nav-center-bar { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.05); }
+        [data-theme="light"] .common-card, [data-theme="light"] .skill-box, [data-theme="light"] .testimonial-card, [data-theme="light"] .achievement-card { border-color: rgba(0,0,0,0.08); box-shadow: 0 4px 15px rgba(0,0,0,0.03); background: #fff;}
+        [data-theme="light"] .btn-outline-glow { color: #023e8a; border-color: #023e8a; }
+        [data-theme="light"] .btn-outline-glow:hover { background: rgba(2, 62, 138, 0.1); color: #fff !important; }
+        [data-theme="light"] .about-text { background: rgba(0,0,0,0.02); }
+        [data-theme="light"] .timeline { border-left-color: rgba(0,0,0,0.1); }
+        [data-theme="light"][dir="rtl"] .timeline { border-right-color: rgba(0,0,0,0.1); border-left-color: transparent; }
+        [data-theme="light"] .timeline-item::before { border-color: var(--primary-color); background: #fff; }
+        [data-theme="light"] .tech-badge { background: rgba(0,0,0,0.05); color: #4a4e69; }
+        [data-theme="light"] .fancy-footer { background-color: #e9ecef; border-top-color: rgba(0,0,0,0.1); }
+        [data-theme="light"] .footer-bottom { background-color: #dee2e6; border-top-color: #ced4da; }
+        [data-theme="light"] .contact-form input, [data-theme="light"] .contact-form textarea { background: #fff; border-color: #ced4da; color: #4a4e69; }
+        [data-theme="light"] .contact-form input:focus, [data-theme="light"] .contact-form textarea:focus { background: #fff; color: #22223b; }
+        [data-theme="light"] .social-circle, [data-theme="light"] .social-circle-small { background: rgba(0,0,0,0.05); color: #22223b; border-color: rgba(0,0,0,0.1); }
+        [data-theme="light"] .social-circle:hover, [data-theme="light"] .social-circle-small:hover { background: var(--primary-color); color: #fff; }
+        [data-theme="light"] .skills-tabs .nav-link { border-color: rgba(0,0,0,0.1); color: #4a4e69; }
+        [data-theme="light"] .skills-tabs .nav-link.active { color: #fff !important; }
+        [data-theme="light"] .fas.fa-bars { color: #22223b !important; }
+        [data-theme="light"] .lang-toggle-btn { color: #22223b !important; }
     </style>
 </head>
 <body>
@@ -512,8 +588,8 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="fas fa-bars text-white fs-3"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav nav-center-bar">
+            <div class="collapse navbar-collapse align-items-center w-100" id="navbarNav">
+                <ul class="navbar-nav nav-center-bar mx-auto mt-3 mt-lg-0 mb-3 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
@@ -524,7 +600,15 @@
                     <li class="nav-item"><a class="nav-link" href="#achievements">Achievements</a></li>
                     <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
                 </ul>
-                <a href="#contact" class="nav-btn-contact text-center text-decoration-none mt-3 mt-lg-0 d-inline-block">Contact Me</a>
+                <div class="d-flex align-items-center mt-3 mt-lg-0 gap-3 justify-content-center">
+                    <button class="btn btn-sm btn-outline-secondary border-0 rounded-circle theme-toggle-btn d-flex align-items-center justify-content-center" id="theme-toggle" title="Toggle Theme" style="width: 40px; height: 40px; background: rgba(255,255,255,0.05); z-index: 1050; position: relative;" onclick="toggleTheme()" type="button">
+                        <i class="fas fa-sun fs-5 text-warning" style="pointer-events: none;"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary border-0 fw-bold rounded lang-toggle-btn text-white d-flex align-items-center justify-content-center" id="lang-toggle" title="Toggle Language" style="height: 40px; min-width: 45px; background: rgba(255,255,255,0.05); z-index: 1050; position: relative;" type="button">
+                        AR
+                    </button>
+                    <a href="#contact" class="nav-btn-contact text-decoration-none">Contact Me</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -534,7 +618,7 @@
             <div class="col-lg-6">
                 <p class="mb-2 text-uppercase letter-spacing-2" style="color: var(--secondary-color);">Hello, I'm</p>
                 <h1 class="hero-name">Hisham Nasser</h1>
-                <h2 class="hero-role">Flutter Developer</h2>
+                <h2 class="hero-role">Flutter Cross-Platform App Developer</h2>
                 <p class="hero-desc">Building high-performance cross-platform mobile apps.</p>
                 <div class="d-flex flex-wrap gap-2 mb-4 justify-content-md-start justify-content-center">
                     <a href="#projects" class="btn btn-glow">View My Work</a>
@@ -620,65 +704,84 @@
     <section id="skills" class="container section-padding reveal">
         <h2 class="section-title">My Skills</h2>
         
-        <div class="row position-relative">
-            <div class="col-md-6 mb-4 pe-md-5 thin-divider-right thin-divider-bottom">
-                <h4 class="mb-4 text-center text-info"><i class="fas fa-code me-2"></i>Technical</h4>
-                <div class="row g-3">
-                    <div class="col-6 col-lg-4">
+        <ul class="nav nav-pills justify-content-center skills-tabs" id="skills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tech-tab" data-bs-toggle="pill" data-bs-target="#tech" type="button" role="tab" aria-controls="tech" aria-selected="true"><i class="fas fa-code me-2"></i>Technical</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="soft-tab" data-bs-toggle="pill" data-bs-target="#soft" type="button" role="tab" aria-controls="soft" aria-selected="false"><i class="fas fa-users me-2"></i>Soft Skills</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tools-tab" data-bs-toggle="pill" data-bs-target="#tools" type="button" role="tab" aria-controls="tools" aria-selected="false"><i class="fas fa-tools me-2"></i>Tools I Use</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="lang-tab" data-bs-toggle="pill" data-bs-target="#lang" type="button" role="tab" aria-controls="lang" aria-selected="false"><i class="fas fa-language me-2"></i>Languages</button>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-4" id="skills-tabContent">
+            <!-- Technical Skills -->
+            <div class="tab-pane fade show active" id="tech" role="tabpanel" aria-labelledby="tech-tab">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-12 col-sm-6 col-lg-4">
                         <div class="skill-box">
                             <img src="assets/icons/flutter.svg" alt="Flutter" class="skill-icon-img">
-                            <span class="skill-name">Flutter</span>
+                            <h5 class="skill-name mb-2 text-white" style="font-size: 1.1rem;">Flutter</h5>
+                            <small class="text-muted" style="font-size: 0.85rem;">Building natively compiled cross-platform apps.</small>
                         </div>
                     </div>
-                    <div class="col-6 col-lg-4">
+                    <div class="col-12 col-sm-6 col-lg-4">
                         <div class="skill-box">
                             <img src="assets/icons/dart.svg" alt="Dart" class="skill-icon-img">
-                            <span class="skill-name">Dart</span>
+                            <h5 class="skill-name mb-2 text-white" style="font-size: 1.1rem;">Dart</h5>
+                            <small class="text-muted" style="font-size: 0.85rem;">Object-oriented language for robust app logic.</small>
                         </div>
                     </div>
-                    <div class="col-6 col-lg-4">
+                    <div class="col-12 col-sm-6 col-lg-4">
                         <div class="skill-box">
                             <img src="assets/icons/firebase.svg" alt="Firebase" class="skill-icon-img">
-                            <span class="skill-name">Firebase</span>
+                            <h5 class="skill-name mb-2 text-white" style="font-size: 1.1rem;">Firebase</h5>
+                            <small class="text-muted" style="font-size: 0.85rem;">Backend logic, authentication, and cloud databases.</small>
                         </div>
                     </div>
-                    <div class="col-6 col-lg-4">
+                    <div class="col-12 col-sm-6 col-lg-4">
                         <div class="skill-box">
                             <img src="assets/icons/api.svg" alt="APIs" class="skill-icon-img">
-                            <span class="skill-name">APIs</span>
+                            <h5 class="skill-name mb-2 text-white" style="font-size: 1.1rem;">APIs</h5>
+                            <small class="text-muted" style="font-size: 0.85rem;">Integrating RESTful services for dynamic data flows.</small>
                         </div>
                     </div>
-                    <div class="col-6 col-lg-4">
+                    <div class="col-12 col-sm-6 col-lg-4">
                         <div class="skill-box">
                             <img src="assets/icons/sharedpreferences.svg" alt="Shared Prefs" class="skill-icon-img">
-                            <span class="skill-name">Shared Preferences</span>
+                            <h5 class="skill-name mb-2 text-white" style="font-size: 1.1rem;">Shared Preferences</h5>
+                            <small class="text-muted" style="font-size: 0.85rem;">Local data storage for offline experiences.</small>
                         </div>
                     </div>
-                    <div class="col-6 col-lg-4">
+                    <div class="col-12 col-sm-6 col-lg-4">
                         <div class="skill-box">
                             <img src="assets/icons/responsive.svg" alt="Responsive" class="skill-icon-img">
-                            <span class="skill-name">Responsive UI</span>
+                            <h5 class="skill-name mb-2 text-white" style="font-size: 1.1rem;">Responsive UI</h5>
+                            <small class="text-muted" style="font-size: 0.85rem;">Crafting interfaces that adapt to all device screens.</small>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 mb-4 ps-md-5">
-                <h4 class="mb-4 text-center text-success"><i class="fas fa-users me-2"></i>Soft Skills</h4>
-                <div class="row g-3">
-                    <div class="col-6 col-lg-4"><div class="skill-box"><img src="assets/icons/problemsolving.svg" alt="Problem Solving" class="skill-icon-img"><span class="skill-name">Problem Solving</span></div></div>
-                    <div class="col-6 col-lg-4"><div class="skill-box"><img src="assets/icons/leadership.svg" alt="Leadership" class="skill-icon-img"><span class="skill-name">Leadership</span></div></div>
-                    <div class="col-6 col-lg-4"><div class="skill-box"><img src="assets/icons/learning.svg" alt="Self-Learning" class="skill-icon-img"><span class="skill-name">Self-Learning</span></div></div>
-                    <div class="col-6 col-lg-4"><div class="skill-box"><img src="assets/icons/teamwork.svg" alt="Teamwork" class="skill-icon-img"><span class="skill-name">Teamwork</span></div></div>
-                    <div class="col-6 col-lg-4"><div class="skill-box"><img src="assets/icons/time-management.svg" alt="Time Mgmt" class="skill-icon-img"><span class="skill-name">Time Management</span></div></div>
-                    <div class="col-6 col-lg-4"><div class="skill-box"><img src="assets/icons/presentation.svg" alt="Presentation" class="skill-icon-img"><span class="skill-name">Presentation</span></div></div>
+            <!-- Soft Skills -->
+            <div class="tab-pane fade" id="soft" role="tabpanel" aria-labelledby="soft-tab">
+                <div class="row g-3 justify-content-center">
+                    <div class="col-6 col-lg-3"><div class="skill-box"><img src="assets/icons/problemsolving.svg" alt="Problem Solving" class="skill-icon-img"><span class="skill-name">Problem Solving</span></div></div>
+                    <div class="col-6 col-lg-3"><div class="skill-box"><img src="assets/icons/leadership.svg" alt="Leadership" class="skill-icon-img"><span class="skill-name">Leadership</span></div></div>
+                    <div class="col-6 col-lg-3"><div class="skill-box"><img src="assets/icons/learning.svg" alt="Self-Learning" class="skill-icon-img"><span class="skill-name">Self-Learning</span></div></div>
+                    <div class="col-6 col-lg-3"><div class="skill-box"><img src="assets/icons/teamwork.svg" alt="Teamwork" class="skill-icon-img"><span class="skill-name">Teamwork</span></div></div>
+                    <div class="col-6 col-lg-3"><div class="skill-box"><img src="assets/icons/time-management.svg" alt="Time Mgmt" class="skill-icon-img"><span class="skill-name">Time Management</span></div></div>
+                    <div class="col-6 col-lg-3"><div class="skill-box"><img src="assets/icons/presentation.svg" alt="Presentation" class="skill-icon-img"><span class="skill-name">Presentation</span></div></div>
                 </div>
             </div>
-        </div>
 
-        <div class="row mt-4 justify-content-center">
-            <div class="col-lg-10">
-                <h4 class="mb-4 text-center text-primary"><i class="fas fa-tools me-2"></i>Tools I Use</h4>
+            <!-- Tools -->
+            <div class="tab-pane fade" id="tools" role="tabpanel" aria-labelledby="tools-tab">
                 <div class="row g-2 justify-content-center">
                     <div class="col-4 col-md-2">
                         <div class="skill-box tool-box">
@@ -718,13 +821,11 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row mt-5 justify-content-center">
-            <div class="col-lg-8">
-                <h4 class="mb-4 text-center text-secondary"><i class="fas fa-language me-2"></i>Languages</h4>
-                <div class="row g-3 justify-content-center">
-                    <div class="col-md-5">
+            <!-- Languages -->
+            <div class="tab-pane fade" id="lang" role="tabpanel" aria-labelledby="lang-tab">
+                <div class="row g-3 justify-content-center mt-2">
+                    <div class="col-md-5 col-lg-4">
                         <div class="skill-box flex-row justify-content-center gap-3">
                             <i class="fas fa-star text-warning" style="font-size: 1.5rem;"></i>
                             <div class="text-start">
@@ -733,7 +834,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-5 col-lg-4">
                         <div class="skill-box flex-row justify-content-center gap-3">
                             <i class="fas fa-check-circle text-primary" style="font-size: 1.5rem;"></i>
                             <div class="text-start">
@@ -1031,9 +1132,272 @@
                             </a>
                         </div>
                     </div>
+                    
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-primary text-primary"><i class="fas fa-bolt me-1"></i> Proactive</span>
+                            </div>
+                            <p class="fst-italic text-light">"Hisham exceeded my expectations with the PowerGym app. He implemented features I hadn't even thought of, and the app runs smoothly on all devices. A truly proactive developer!"</p>
+                        </div>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">SB</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Sayed Bukharist</h5>
+                                    <small class="text-muted">Gym Owner</small>
+                                </div>
+                            </div>
+                            <a href="https://www.facebook.com/sayed.bukharist.2025" target="_blank" class="social-circle-small text-primary border border-secondary"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-success text-success"><i class="fas fa-check-circle me-1"></i> Excellent Student</span>
+                            </div>
+                            <p class="fst-italic text-light">"Hisham showed exceptional dedication during the Flutter course, achieving a 99% score. His grasp of complex concepts like State Management and clean architecture was highly impressive."</p>
+                        </div>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">MR</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Mostafa H. Ramadan</h5>
+                                    <small class="text-muted">ITI Flutter Instructor</small>
+                                </div>
+                            </div>
+                            <a href="https://www.linkedin.com/in/mostafa-hussain-ramadan/" target="_blank" class="social-circle-small text-info border border-secondary"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-info text-info"><i class="fas fa-bullseye me-1"></i> Committed Learner</span>
+                            </div>
+                            <p class="fst-italic text-light">"I had the honor of training Hisham in soft skills as part of the Digital Egypt Pioneers initiative. During the training, he proved to be an ambitious, enthusiastic, and highly committed learner. I wish you all the best, Engineer Hisham."</p>
+                        </div>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">AE</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Amira Ellahlopy</h5>
+                                    <small class="text-muted">DEPI Soft Skills Trainer</small>
+                                </div>
+                            </div>
+                            <a href="https://www.linkedin.com/in/amira-ellahlopy-9a6998150/" target="_blank" class="social-circle-small text-info border border-secondary"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-primary text-primary"><i class="fas fa-bolt me-1"></i> Proactive</span>
+                            </div>
+                            <p class="fst-italic text-light">"Hisham exceeded my expectations with the PowerGym app. He implemented features I hadn't even thought of, and the app runs smoothly on all devices. A truly proactive developer!"</p>
+                        </div>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">SB</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Sayed Bukharist</h5>
+                                    <small class="text-muted">Gym Owner</small>
+                                </div>
+                            </div>
+                            <a href="https://www.facebook.com/sayed.bukharist.2025" target="_blank" class="social-circle-small text-primary border border-secondary"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-success text-success"><i class="fas fa-check-circle me-1"></i> Excellent Student</span>
+                            </div>
+                            <p class="fst-italic text-light">"Hisham showed exceptional dedication during the Flutter course, achieving a 99% score. His grasp of complex concepts like State Management and clean architecture was highly impressive."</p>
+                        </div>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">MR</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Mostafa H. Ramadan</h5>
+                                    <small class="text-muted">ITI Flutter Instructor</small>
+                                </div>
+                            </div>
+                            <a href="https://www.linkedin.com/in/mostafa-hussain-ramadan/" target="_blank" class="social-circle-small text-info border border-secondary"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-info text-info"><i class="fas fa-bullseye me-1"></i> Committed Learner</span>
+                            </div>
+                            <p class="fst-italic text-light">"I had the honor of training Hisham in soft skills as part of the Digital Egypt Pioneers initiative. During the training, he proved to be an ambitious, enthusiastic, and highly committed learner. I wish you all the best, Engineer Hisham."</p>
+                        </div>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">AE</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Amira Ellahlopy</h5>
+                                    <small class="text-muted">DEPI Soft Skills Trainer</small>
+                                </div>
+                            </div>
+                            <a href="https://www.linkedin.com/in/amira-ellahlopy-9a6998150/" target="_blank" class="social-circle-small text-info border border-secondary"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="marquee-group" aria-hidden="true">
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-primary text-primary"><i class="fas fa-bolt me-1"></i> Proactive</span>
+                            </div>
+                            <p class="fst-italic text-light">"Hisham exceeded my expectations with the PowerGym app. He implemented features I hadn't even thought of, and the app runs smoothly on all devices. A truly proactive developer!"</p>
+                        </div>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">SB</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Sayed Bukharist</h5>
+                                    <small class="text-muted">Gym Owner</small>
+                                </div>
+                            </div>
+                            <a href="https://www.facebook.com/sayed.bukharist.2025" target="_blank" class="social-circle-small text-primary border border-secondary"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-success text-success"><i class="fas fa-check-circle me-1"></i> Excellent Student</span>
+                            </div>
+                            <p class="fst-italic text-light">"Hisham showed exceptional dedication during the Flutter course, achieving a 99% score. His grasp of complex concepts like State Management and clean architecture was highly impressive."</p>
+                        </div>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">MR</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Mostafa H. Ramadan</h5>
+                                    <small class="text-muted">ITI Flutter Instructor</small>
+                                </div>
+                            </div>
+                            <a href="https://www.linkedin.com/in/mostafa-hussain-ramadan/" target="_blank" class="social-circle-small text-info border border-secondary"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-info text-info"><i class="fas fa-bullseye me-1"></i> Committed Learner</span>
+                            </div>
+                            <p class="fst-italic text-light">"I had the honor of training Hisham in soft skills as part of the Digital Egypt Pioneers initiative. During the training, he proved to be an ambitious, enthusiastic, and highly committed learner. I wish you all the best, Engineer Hisham."</p>
+                        </div>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">AE</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Amira Ellahlopy</h5>
+                                    <small class="text-muted">DEPI Soft Skills Trainer</small>
+                                </div>
+                            </div>
+                            <a href="https://www.linkedin.com/in/amira-ellahlopy-9a6998150/" target="_blank" class="social-circle-small text-info border border-secondary"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-primary text-primary"><i class="fas fa-bolt me-1"></i> Proactive</span>
+                            </div>
+                            <p class="fst-italic text-light">"Hisham exceeded my expectations with the PowerGym app. He implemented features I hadn't even thought of, and the app runs smoothly on all devices. A truly proactive developer!"</p>
+                        </div>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">SB</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Sayed Bukharist</h5>
+                                    <small class="text-muted">Gym Owner</small>
+                                </div>
+                            </div>
+                            <a href="https://www.facebook.com/sayed.bukharist.2025" target="_blank" class="social-circle-small text-primary border border-secondary"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-success text-success"><i class="fas fa-check-circle me-1"></i> Excellent Student</span>
+                            </div>
+                            <p class="fst-italic text-light">"Hisham showed exceptional dedication during the Flutter course, achieving a 99% score. His grasp of complex concepts like State Management and clean architecture was highly impressive."</p>
+                        </div>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">MR</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Mostafa H. Ramadan</h5>
+                                    <small class="text-muted">ITI Flutter Instructor</small>
+                                </div>
+                            </div>
+                            <a href="https://www.linkedin.com/in/mostafa-hussain-ramadan/" target="_blank" class="social-circle-small text-info border border-secondary"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="text-warning fs-5">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="badge bg-dark border border-info text-info"><i class="fas fa-bullseye me-1"></i> Committed Learner</span>
+                            </div>
+                            <p class="fst-italic text-light">"I had the honor of training Hisham in soft skills as part of the Digital Egypt Pioneers initiative. During the training, he proved to be an ambitious, enthusiastic, and highly committed learner. I wish you all the best, Engineer Hisham."</p>
+                        </div>
+                        <div class="testimonial-author-box mt-4 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="author-initial">AE</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 text-white">Amira Ellahlopy</h5>
+                                    <small class="text-muted">DEPI Soft Skills Trainer</small>
+                                </div>
+                            </div>
+                            <a href="https://www.linkedin.com/in/amira-ellahlopy-9a6998150/" target="_blank" class="social-circle-small text-info border border-secondary"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
                     <div class="testimonial-card">
                         <div>
                             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -1255,7 +1619,227 @@
         mybutton.addEventListener("click", function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+
+        // === Language Toggle ===
+        const enToArabic = {
+            "Home": "الرئيسية",
+            "About": "نبذة",
+            "Education": "التعليم",
+            "Skills": "المهارات",
+            "Experience": "الخبرات",
+            "Services": "الخدمات",
+            "Projects": "المشاريع",
+            "Achievements": "الإنجازات",
+            "Testimonials": "التوصيات",
+            "Contact Me": "تواصل معي",
+            "Hello, I'm": "مرحباً، أنا",
+            "Hisham Nasser": "هشام ناصر",
+            "Flutter Cross-Platform App Developer": "مطور تطبيقات فلاتر عبر المنصات",
+            "Building high-performance cross-platform mobile apps.": "بناء تطبيقات سريعة للهواتف الذكية تعمل على مختلف الأنظمة.",
+            "View My Work": "شاهد أعمالي",
+            "Download CV": "تحميل السيرة الذاتية",
+            "About Me": "نبذة عني",
+            "Hi, I’m a Flutter Developer dedicated to building high-performance cross-platform applications. With over a year of hands-on experience, I’ve delivered": "مرحباً، أنا مطور تطبيقات فلاتر متخصص في بناء أسرع وأحدث التطبيقات للهواتف. بخبرة عملية قوية وتطوير مستمر، قمت بتسليم",
+            "3 successful projects": "أكثر من ٣ مشاريع احترافية",
+            ", including a fully optimized Gym Management App. I achieved a": "، بما في ذلك تطبيق شامل لإدارة صالات الجيم. لقد استطعت تحقيق",
+            "30% performance boost": "زيادة في الأداء بنسبة ٣٠٪",
+            "in this project, ensuring a seamless user experience across both low-end and high-end devices.": "مما يضمن تجربة مستخدم سلسة وثابتة لمختلف الهواتف الضعيفة والقوية.",
+            "I bring proactive problem-solving to the table—anticipating your product's needs and implementing features before they are even requested. My tech stack includes": "أقدم حلولاً برمجية استباقية للمشكلات - أتوقع احتياجات منتجك وأضيف مميزات قبل طلبها. التقنيات التي أتقنها تشمل",
+            "Flutter, Firebase, APIs": "فلاتر، قواعد فايربيس السحابية، وربط الواجهات البرمجية (APIs)",
+            ", and advanced state management to deliver robust solutions.": "، مع إدارة الحالة المتقدمة لتقديم منتجات قوية ومستقرة.",
+            "Education & Certificates": "التعليم والشهادات",
+            "Bachelor of Computer Science": "بكالوريوس علوم حاسب",
+            "El Shorouk Academy": "أكاديمية الشروق",
+            "Specialization:": "التخصص:",
+            "Computer Science": "علوم الحاسب",
+            "Coursework:": "المقررات:",
+            "Algorithms, Software Engineering, Data Structures, OOP.": "الخوارزميات، مسارات هندسة البرمجيات، وهياكل البيانات.",
+            "Certificates": "الشهادات",
+            "Mobile using Flutter (120 hrs)": "تطوير تطبيقات الهاتف بواسطة فلاتر (١٢٠ ساعة)",
+            "Information Technology Institute (ITI)": "معهد تكنولوجيا المعلومات (ITI)",
+            "Evaluation:": "التقييم:",
+            "HTML5, CSS3 & Intro to Prog": "أساسيات وتصميم الويب HTML & CSS",
+            "Dart & Flutter Framework": "منصة عمل دارت وفلاتر",
+            "Firebase Integration": "ربط قواعد البيانات بفايربيس",
+            "My Skills": "أبرز المهارات",
+            "Technical": "التقنية",
+            "Soft Skills": "الشخصية",
+            "Tools I Use": "الأدوات",
+            "Languages": "اللغات",
+            "Building natively compiled cross-platform apps.": "برمجة وبناء تطبيقات عالية الأداء لمختلف المنصات.",
+            "Object-oriented language for robust app logic.": "لغة كائنية لمنطق برمجي متين وقوي للأعمال.",
+            "Backend logic, authentication, and cloud databases.": "منطق قواعد البيانات، وجميع عمليات المصادقة.",
+            "Integrating RESTful services for dynamic data flows.": "دمج خدمات الاستعلام لجلب البيانات بشكل حيوي.",
+            "Local data storage for offline experiences.": "التخزين المحلي الآمن لتجارب خالية من الإنترنت.",
+            "Crafting interfaces that adapt to all device screens.": "تصميم واجهات تتكيف بتجاوب مع جميع الشاشات.",
+            "Problem Solving": "حل المشكلات",
+            "Leadership": "القيادة والإدارة",
+            "Self-Learning": "التعلم الذاتي المستمر",
+            "Teamwork": "تعاون ضمن الفريق",
+            "Time Management": "إدارة المهام والوقت",
+            "Presentation": "الإلقاء والعرض",
+            "Arabic": "العربية",
+            "Native": "اللغة الأم",
+            "English": "الإنجليزية",
+            "Good": "مستوى جيد جداً",
+            "Cross Platform App Development": "تطوير عبر المنصات",
+            "Digital Egypt Pioneers Initiative (DEPI) - Hybrid": "مبادرة رواد مصر الرقمية (DEPI)",
+            "Challenge:": "التحدي:",
+            "Mastering the full lifecycle of cross-platform mobile application development and advanced state management techniques.": "إتقان دورة الحياة الكاملة لتطوير التطبيقات وإدارة الحالات المتقدمة.",
+            "Action:": "الإجراء:",
+            "Undertook intensive hybrid training, diving deep into Dart, Flutter, API integration, and Firebase, while consistently documenting and unit testing code.": "اجتياز تدريب مكثف والتعمق في دارت وفلاتر وفايربيس بتركيز عالي وتوثيق للأكواد.",
+            "Result:": "النتيجة:",
+            "Successfully developed scalable mobile applications ready for deployment on both Android and iOS platforms.": "نجاح مطور في تطوير تطبيقات مرنة جاهزة للنشر على أندرويد و آي أو إس.",
+            "Flutter Development Course": "دورة تطوير التطبيقات بفلاتر",
+            "Information Technology Institute (ITI) - Online": "معهد تكنولوجيا المعلومات (ITI) - أونلاين",
+            "Quickly grasping mobile app development fundamentals and transitioning into a structured framework like Flutter.": "الفهم السريع للأساسيات والانتقال السلس لبيئة فلاتر.",
+            "Completed a rigorous 120-hour intensive summer training covering HTML/CSS, JS basics, Dart, and Flutter UI/UX components.": "إكمال تدريب صيفي بـ ١٢٠ ساعة يشمل تقنيات الويب ودارت وفلاتر الأساسية.",
+            "Achieved a 99% final evaluation score and successfully built functional apps integrated with Firebase.": "تحقيق نسبة تقييم 99% وبناء تطبيقات متكاملة مع فايربيس بنجاح.",
+            "My Services": "الخدمات المقدمة",
+            "App Development": "تطوير التطبيقات",
+            "Building high-quality iOS and Android apps using a single Flutter codebase.": "بناء تطبيقات عالية الجودة بكود برمجي مستقر وموحد.",
+            "Flutter & Dart": "فلاتر و دارت",
+            "State Management": "إدارة الحالة والمنظومة",
+            "Responsive UI/UX": "واجهات وتجارب استخدام مرنة",
+            "Performance Tuning": "تحسين أداء وسرعة التطبيق",
+            "Optimizing app performance to run smoothly on low-end devices.": "استهداف رفع أداء التطبيقات لتعمل بأفضل وضع على كافة الأجهزة.",
+            "Memory Optimization": "ترشيد استهلاك الذاكرة العشوائية",
+            "Code Refactoring": "إعادة بناء وتنقيح الأكواد بفاعلية",
+            "Widget Tree Management": "إدارة الشجرة البنائية بأفضل سرعة صياغة",
+            "Backend Binding": "تهيئة والربط مع الواجهة الخلفية",
+            "Integrating apps with Firebase, REST APIs, and handling complex data flow.": "دعم الواجهة الخلفية للتطبيق بالتقنيات المطلوبة لتعمل في استقرار وتدفق حقيقي للبيانات.",
+            "Firebase Auth & Firestore": "مصادقة فايربيس الواسعة وقواعد فايرستور",
+            "RESTful API Integration": "الربط التام مع كافة برمجيات الويب و RestAPI",
+            "Local Storage (SharedPrefs)": "العمل بالذاكرة المؤقتة للتطبيق والموفرة للمال والموارد",
+            "Featured Projects": "أبرز أعمالي والمشاريع",
+            "Freelance Project": "العمل الحر",
+            "Creating a gym app that works smoothly on low-end devices.": "إنشاء تطبيق شامل وجذاب لمنظومة جيم يعمل بسلاسة ورشاقة.",
+            "Implemented clean architecture and optimized the widget tree.": "بناء المعمارية البرمجية بشكل نظيف وتقليل حجم التطبيق.",
+            "Achieved a 30% performance boost and high client satisfaction.": "قفزة رائعة في كفاءة التطبيق ونال رضا العملاء والجمهور.",
+            "View on GitHub": "رؤية الكود المصدري على جيت هب",
+            "ITI Summer Training": "مشروع تخرج",
+            "Developing a full e-commerce flow in a very short timeframe.": "تطوير رحلة مستخدم شاملة لتطبيق تجارة إلكترونية بتوقيت قياسي ومكثف.",
+            "Used Firebase for rapid backend deployment and integrated a mockup payment gateway.": "دعم التطبيق بفايربيس واستغلال قوته ودمج بوابة دفع ظاهرية مجسمة.",
+            "Delivered a fully functional, real-time shopping application.": "تطبيق تسوق مرن يواكب سرعة الأداء الحديث ويجدد البيانات بالوقت الحي.",
+            "Building a language learning app that doesn't rely on internet connectivity.": "تخطي كل المعوقات لتوفير تطبيق يتيح للعميل استخدامه أوفلاين.",
+            "Embedded local audio assets and structured data internally using Dart.": "تضمين الملفات بطرق موفرة وصياغة متينة للبيانات باستخدام لغة دارت.",
+            "A seamless, instant-loading Japanese learning tool functioning 100% offline.": "أداة تعلم تعمل بدون إنترنت بنسبة 100% بلغة مريحة وبتجربة رائعة.",
+            "DEPI Selection": "النجاح والتأهيل ضمن الـ DEPI",
+            "Digital Egypt Pioneers Initiative": "مبادرة رواد مصر الرقمية القومية والتأهيل الحديث",
+            "Selected to join the prestigious MCIT initiative, undergoing intensive training in modern cross-platform development techniques.": "تم تأهيلي بحمد الله للانضمام للمبادرة واجتياز اختباراتها بنجاح، وها أنا أتابع تدريبها القيم.",
+            "3+ Active Projects": "أكثر من 3 مشاريع مطروحة",
+            "GitHub Open Source": "مشاريع مفتوحة المصدر بجيت هب وموثقة",
+            "Successfully developed and deployed robust, well-documented source codes available for review on my GitHub Profile.": "تطوير وبناء أكواد برمجية على مستوى موثوق معتمدة على توثيقات قوية جاهزة ومتاحة للجمهور.",
+            "Apkpure Platform": "نشر بمعدل تقييم متميز على متجر Apkpure",
+            "Achieved massive performance optimization in the PowerGym App, successfully published and ensuring smooth usage on low-end devices.": "تطبيق PowerGym المنشور فعلياً وحاز إعجاباً وردود أفعال إيجابية للغاية بفضل تجربة مستخدم خالية من العوائق ومثالية.",
+            "Proactive": "احترافي",
+            "\"Hisham exceeded my expectations with the PowerGym app. He implemented features I hadn't even thought of, and the app runs smoothly on all devices. A truly proactive developer!\"": "\"تجاوز مطوري هشام ناصر سقف توقعاتي بشكل لافت واستباقي في مشروع صالة كمال الأجسام خاصتي، أوصيك به بشدة لمشروعك مهما كان حجمه لأنك ستجد شريك وليس مطور تنفيذي وحسب!\"",
+            "Sayed Bukharist": "سيد بخاريست",
+            "Gym Owner": "مالك لصالة العاب بدنية",
+            "Excellent Student": "طالب نموذجي وعالي الشغف",
+            "\"Hisham showed exceptional dedication during the Flutter course, achieving a 99% score. His grasp of complex concepts like State Management and clean architecture was highly impressive.\"": "\"أثبت هشام طوال متابعتي له شغفه الكبير وتفانيه الملحوظ للوصول لمستوى إتقان وممارسات مثالية. درجاته تؤكد جدارته المهنية وعلو كعبه في المهارات المكتسبة حديثاً.\"",
+            "Mostafa H. Ramadan": "مصطفى ح. رمضان",
+            "ITI Flutter Instructor": "مدرب فلاتر بالـ ITI",
+            "Committed Learner": "دؤوب وشغوف للتميز والتطوير",
+            "\"I had the honor of training Hisham in soft skills as part of the Digital Egypt Pioneers initiative. During the training, he proved to be an ambitious, enthusiastic, and highly committed learner. I wish you all the best, Engineer Hisham.\"": "\"شرفت بتدريب هشام ناصر ومس لي الإخلاص والشغف والسعي الدؤوب للمقدمة والاحتراف، وأرجو لشاب مثله الكثير من التوفيق وخصوصاً بعقليته النشطة والناضجة.\"",
+            "Amira Ellahlopy": "أميرة اللهلوبي",
+            "DEPI Soft Skills Trainer": "مدربة المهارات المهنية مبادرة الـ DEPI القومية",
+            "Get In Touch": "يسعدني تواصلك لتطوير مشروعك الجديد!",
+            "Let's Talk About Your Project": "لنتحدث حول تفاصيل مشروعك أو فكرتك العبقرية",
+            "Feel free to reach out for collaborations, freelance work, or just to say hi! I am always open to discussing new projects.": "متاح للتعاون وأعمال العمل الحر ومستعد دوما للتواصل ومناقشة تفاصيل وأفكار برمجية جديدة وتطوير بيئات الأعمال والتطبيقات بأساليب عملية.",
+            "Email Me": "مراسلتي بالبريد المباشر",
+            "WhatsApp": "مراسلتي السريعة بالواتساب",
+            "Follow Me": "تابع أعمالي وحساباتي وصفحاتي",
+            "Your Name": "الاسم الكامل",
+            "Your Email": "بريدك الإلكتروني",
+            "Subject": "موضوع الرسالة",
+            "Your Message": "اكتب رسالتك وتفاصيل استفسارك...",
+            "Send Message": "إرسال رسالتك",
+            "Building robust, high-performance cross-platform mobile applications with a focus on clean architecture and seamless user experiences.": "تطويع لغات البرمجة ومفاهيم الهندسة لخلق منتجات مذهلة تحل مشكلاتك باحترافية وتلبي تطلعات وحجم توقعات أرباحك وعملائك بصورة مبتكرة دائمًا.",
+            "Quick Links": "إختصارات سريعة للوصول",
+            "Social": "تواصل معي بمناصات التواصل",
+            "© 2026 Designed & Built by Hisham Nasser. All Rights Reserved.": "© 2026 تصميم وتنفيذ المطور هشام ناصر. جميع الحقوق والأكواد محفوظة بشروطها."
+        };
+        // === Theme Toggle ===
+        window.toggleTheme = function() {
+            const icon = document.querySelector('#theme-toggle i');
+            if (document.body.getAttribute('data-theme') === 'light') {
+                document.body.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'dark');
+                if(icon) icon.className = 'fas fa-sun fs-5 text-warning';
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                if(icon) icon.className = 'fas fa-moon fs-5 text-dark';
+            }
+        };
+
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.setAttribute('data-theme', 'light');
+            const icon = document.querySelector('#theme-toggle i');
+            if(icon) icon.className = 'fas fa-moon fs-5 text-dark';
+        }
+
+        // === Language Toggle ===
+        const arToEnglish = {};
+        for(let key in enToArabic) { arToEnglish[enToArabic[key]] = key; }
+
+        function translatePage(targetLang) {
+            const dict = targetLang === 'ar' ? enToArabic : arToEnglish;
+            
+            function traverse(node) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    let trimmed = node.nodeValue.trim();
+                    if (trimmed && dict[trimmed]) {
+                        node.nodeValue = node.nodeValue.replace(trimmed, dict[trimmed]);
+                    }
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    if (!['SCRIPT', 'STYLE'].includes(node.tagName.toUpperCase())) {
+                        for (let child of node.childNodes) traverse(child);
+                    }
+                }
+            }
+            
+            document.querySelectorAll('input[placeholder], textarea[placeholder]').forEach(el => {
+                let trimmed = el.getAttribute('placeholder').trim();
+                if(targetLang === 'ar') {
+                    if (dict[trimmed]) el.setAttribute('placeholder', dict[trimmed]);
+                } else {
+                    for(let key in enToArabic) {
+                        if(enToArabic[key] === trimmed) {
+                            el.setAttribute('placeholder', key);
+                            break;
+                        }
+                    }
+                }
+            });
+
+            traverse(document.body);
+            
+            document.documentElement.lang = targetLang;
+            document.documentElement.dir = targetLang === 'ar' ? 'rtl' : 'ltr';
+            
+            const toggleLangBtn = document.getElementById('lang-toggle');
+            if(toggleLangBtn) toggleLangBtn.textContent = targetLang === 'ar' ? 'EN' : 'AR';
+            
+            if(targetLang === 'ar') {
+                document.body.style.fontFamily = "'Cairo', 'Poppins', sans-serif";
+            } else {
+                document.body.style.fontFamily = "'Poppins', sans-serif";
+            }
+            localStorage.setItem('lang', targetLang);
+        }
+
+        const langToggleBtn = document.getElementById('lang-toggle');
+        if(langToggleBtn) {
+            langToggleBtn.addEventListener('click', () => {
+                const currentLang = document.documentElement.lang || 'en';
+                translatePage(currentLang === 'en' ? 'ar' : 'en');
+            });
+        }
+
+        const savedLang = localStorage.getItem('lang') || 'en';
+        if(savedLang === 'ar') { translatePage('ar'); }
     </script>
 </body>
-
 </html>
