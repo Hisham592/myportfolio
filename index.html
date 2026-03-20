@@ -525,6 +525,57 @@
             .profile-img { width: 250px; height: 250px; }
         }
 
+        /* === Pricing Modal Styles === */
+        .pricing-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s;
+        }
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.1);
+            border-color: var(--primary-color);
+        }
+        .pricing-card-premium {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.2);
+        }
+        .pricing-card-premium:hover {
+            box-shadow: 0 15px 40px rgba(0, 210, 255, 0.4);
+        }
+        .pricing-list li {
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            position: relative;
+            padding-left: 20px;
+        }
+        .pricing-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        .pricing-card-premium .pricing-list li::before {
+            color: #fff;
+        }
+        [dir="rtl"] .pricing-list li {
+            padding-left: 0;
+            padding-right: 20px;
+        }
+        [dir="rtl"] .pricing-list li::before {
+            left: auto;
+            right: 0;
+        }
+        .modal-header .btn-close { filter: invert(1) grayscale(100%) brightness(200%); }
+        [data-theme="light"] .modal-header .btn-close { filter: none !important; }
+
         /* === RTL Global Overrides === */
         [dir="rtl"] .text-start { text-align: right !important; }
         [dir="rtl"] .service-list { padding-right: 0; }
@@ -568,6 +619,12 @@
         html[dir="rtl"] body[data-theme="light"] .timeline { border-right-color: rgba(0,0,0,0.1); border-left-color: transparent; }
         [data-theme="light"] .timeline-item::before { border-color: var(--primary-color); background: #fff; }
         [data-theme="light"] .tech-badge { background: rgba(0,0,0,0.05); color: #4a4e69; }
+        [data-theme="light"] .pricing-card-premium h4, 
+        [data-theme="light"] .pricing-card-premium h3, 
+        [data-theme="light"] .pricing-card-premium p, 
+        [data-theme="light"] .pricing-card-premium .pricing-list,
+        [data-theme="light"] .pricing-card-premium .pricing-list li { color: #ffffff !important; }
+        [data-theme="light"] .modal-content { border-color: rgba(0,0,0,0.1) !important; background-color: var(--card-bg) !important; }
         [data-theme="light"] .fancy-footer { background-color: #e9ecef; border-top-color: rgba(0,0,0,0.1); }
         [data-theme="light"] .footer-bottom { background-color: #dee2e6; border-top-color: #ced4da; }
         [data-theme="light"] .contact-form input, [data-theme="light"] .contact-form textarea { background: #fff; border-color: #ced4da; color: #4a4e69; }
@@ -945,6 +1002,9 @@
                     </ul>
                 </div>
             </div>
+        </div>
+        <div class="text-center mt-4">
+            <button data-bs-toggle="modal" data-bs-target="#pricingModal" class="btn btn-outline-glow px-4 py-2"><i class="fas fa-tags me-2"></i>View Pricing Plans</button>
         </div>
     </section>
 
@@ -1572,6 +1632,101 @@
         </div>
     </footer>
 
+    <!-- Pricing Modal -->
+    <div class="modal fade" id="pricingModal" tabindex="-1" aria-labelledby="pricingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content" style="background-color: var(--bg-color); border: 1px solid rgba(255,255,255,0.1);">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-4 px-lg-5 pb-5 pt-0">
+                    <div class="text-center mb-5">
+                        <h2 class="fw-bold mb-3 section-title" id="pricingModalLabel" style="border:none; padding:0;">PRICING PLANS</h2>
+                        <p class="text-secondary mx-auto" style="max-width: 600px;">We offer flexible pricing to suit your needs, whether you're just starting out or scaling up. Choose the plan that's right for you.</p>
+                    </div>
+                    
+                    <div class="row g-4">
+                        <!-- Basic Plan -->
+                        <div class="col-lg-3 col-md-6">
+                            <div class="pricing-card">
+                                <h4 class="fw-bold text-center mb-2">Basic Plan</h4>
+                                <h3 style="color: var(--primary-color);" class="text-center mb-4">$30 - $50</h3>
+                                <p class="fw-bold mb-3">Features:</p>
+                                <ul class="list-unstyled mb-4 pricing-list text-secondary">
+                                    <li>Basic UI/UX Design</li>
+                                    <li>Standard Features</li>
+                                    <li>Up to 3 Revisions</li>
+                                    <li>Standard Email Support</li>
+                                    <li>Delivery in 5-7 Days</li>
+                                </ul>
+                                <div class="text-center mt-auto">
+                                    <button type="button" class="btn btn-outline-glow w-100 m-0" data-bs-dismiss="modal" onclick="setTimeout(() => { document.getElementById('contact').scrollIntoView({behavior: 'smooth'}); }, 350);">CHOOSE</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Standard Plan -->
+                        <div class="col-lg-3 col-md-6">
+                            <div class="pricing-card">
+                                <h4 class="fw-bold text-center mb-2">Standard Plan</h4>
+                                <h3 style="color: var(--primary-color);" class="text-center mb-4">$100 - $150</h3>
+                                <p class="fw-bold mb-3">Features:</p>
+                                <ul class="list-unstyled mb-4 pricing-list text-secondary">
+                                    <li>Custom Interactive UI/UX</li>
+                                    <li>API Integrations</li>
+                                    <li>Up to 7 Revisions</li>
+                                    <li>Priority Chat Support</li>
+                                    <li>Source Code Provided</li>
+                                </ul>
+                                <div class="text-center mt-auto">
+                                    <button type="button" class="btn btn-outline-glow w-100 m-0" data-bs-dismiss="modal" onclick="setTimeout(() => { document.getElementById('contact').scrollIntoView({behavior: 'smooth'}); }, 350);">CHOOSE</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Premium Plan -->
+                        <div class="col-lg-3 col-md-6">
+                            <div class="pricing-card pricing-card-premium">
+                                <h4 class="fw-bold text-center text-white mb-2">Premium Plan</h4>
+                                <h3 class="text-white text-center mb-4">$200 - $300</h3>
+                                <p class="fw-bold mb-3 text-white">Features:</p>
+                                <ul class="list-unstyled mb-4 pricing-list text-white">
+                                    <li style="color: #fff;">Full App Development</li>
+                                    <li style="color: #fff;">Database & Admin Panel</li>
+                                    <li style="color: #fff;">Unlimited Revisions</li>
+                                    <li style="color: #fff;">24/7 Premium Support</li>
+                                    <li style="color: #fff;">1 Month Free Maintenance</li>
+                                </ul>
+                                <div class="text-center mt-auto">
+                                    <button type="button" class="btn w-100 text-dark fw-bold" style="background-color: #fff;" data-bs-dismiss="modal" onclick="setTimeout(() => { document.getElementById('contact').scrollIntoView({behavior: 'smooth'}); }, 350);">CHOOSE</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Custom Plan -->
+                        <div class="col-lg-3 col-md-6">
+                            <div class="pricing-card">
+                                <h4 class="fw-bold text-center mb-2">Custom Plan</h4>
+                                <h3 style="color: var(--primary-color);" class="text-center mb-4">Contact Us</h3>
+                                <p class="fw-bold mb-3">Features:</p>
+                                <ul class="list-unstyled mb-4 pricing-list text-secondary">
+                                    <li>Enterprise-Grade Solutions</li>
+                                    <li>Custom Architecture</li>
+                                    <li>Dedicated Account Manager</li>
+                                    <li>Long-term Maintenance</li>
+                                    <li>Tailored to Your Needs</li>
+                                </ul>
+                                <div class="text-center mt-auto">
+                                    <a href="#contact" class="btn btn-outline-glow w-100 m-0" data-bs-dismiss="modal" onclick="setTimeout(() => { document.getElementById('contact').scrollIntoView({behavior: 'smooth'}); }, 350);">CHOOSE</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // === Scroll Reveal Animation ===
@@ -1767,7 +1922,41 @@
             "Building robust, high-performance cross-platform mobile applications with a focus on clean architecture and seamless user experiences.": "تطويع لغات البرمجة ومفاهيم الهندسة لخلق منتجات مذهلة تحل مشكلاتك باحترافية وتلبي تطلعات وحجم توقعات أرباحك وعملائك بصورة مبتكرة دائمًا.",
             "Quick Links": "إختصارات سريعة للوصول",
             "Social": "تواصل معي بمناصات التواصل",
-            "© 2026 Designed & Built by Hisham Nasser. All Rights Reserved.": "© 2026 تصميم وتنفيذ المطور هشام ناصر. جميع الحقوق والأكواد محفوظة بشروطها."
+            "© 2026 Designed & Built by Hisham Nasser. All Rights Reserved.": "© 2026 تصميم وتنفيذ المطور هشام ناصر. جميع الحقوق والأكواد محفوظة بشروطها.",
+            "Pricing": "الأسعار",
+            "PRICING PLANS": "خطط الأسعار",
+            "We offer flexible pricing to suit your needs, whether you're just starting out or scaling up. Choose the plan that's right for you.": "نقدم خطط أسعار مرنة لتناسب احتياجاتك، سواء كنت في البداية أو تتطلع للتوسع. اختر الخطة المناسبة لك.",
+            "Basic Plan": "الخطة الأساسية",
+            "Standard Plan": "الخطة القياسية",
+            "Premium Plan": "الخطة المميزة",
+            "Custom Plan": "خطة مخصصة",
+            "$30 - $50": "٣٠$ - ٥٠$",
+            "$100 - $150": "١٠٠$ - ١٥٠$",
+            "$200 - $300": "٢٠٠$ - ٣٠٠$",
+            "Contact Us": "تواصل معنا",
+            "Features:": "المميزات:",
+            "CHOOSE": "اختيار الخطة",
+            "Basic UI/UX Design": "تصميم واجهة مستخدم أساسية",
+            "Standard Features": "ميزات قياسية للتطبيق",
+            "Up to 3 Revisions": "تعديلات حتى 3 مرات",
+            "Standard Email Support": "دعم فني عبر البريد الإلكتروني",
+            "Delivery in 5-7 Days": "تسليم خلال 5-7 أيام",
+            "Custom Interactive UI/UX": "واجهة مستخدم تفاعلية ومخصصة",
+            "API Integrations": "ربط متقدم بالواجهات البرمجية (API)",
+            "Up to 7 Revisions": "تعديلات واسعة حتى 7 مرات",
+            "Priority Chat Support": "دعم فني بأولوية عبر الدردشة",
+            "Source Code Provided": "تسليم الكود المصدري كاملاً",
+            "Full App Development": "تطوير تطبيق متكامل من الصفر",
+            "Database & Admin Panel": "قواعد بيانات ولوحة تحكم للإدارة",
+            "Unlimited Revisions": "تعديلات غير محدودة للوصول للمثالية",
+            "24/7 Premium Support": "دعم فني مميز على مدار الساعة",
+            "1 Month Free Maintenance": "صيانة مجانية لمدة شهر كامل",
+            "Enterprise-Grade Solutions": "حلول متكاملة للمؤسسات الكبرى",
+            "Custom Architecture": "بناء معمارية برمجية مخصصة",
+            "Dedicated Account Manager": "مدير حسابات مخصص لمشروعك",
+            "Long-term Maintenance": "عقود صيانة وتطوير طويلة المدى",
+            "Tailored to Your Needs": "خطة مفصلة بالكامل لاحتياجاتك",
+            "View Pricing Plans": "عرض خطط الأسعار"
         };
         // === Theme Toggle ===
         window.toggleTheme = function() {
